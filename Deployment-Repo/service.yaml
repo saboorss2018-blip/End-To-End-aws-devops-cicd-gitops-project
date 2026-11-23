@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: abdul-cd-svc
+  labels:
+    app: abdul-cd
+spec:
+  type: LoadBalancer
+  selector:
+    app: abdul-cd
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80s

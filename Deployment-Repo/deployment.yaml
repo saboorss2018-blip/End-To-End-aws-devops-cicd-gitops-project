@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abdul-cd
+  labels:
+    app: abdul-cd
+spec:
+  replicas: 3
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+
+  selector:
+    matchLabels:
+      app: abdul-cd
+
+  template:
+    metadata:
+      labels:
+        app: abdul-cd
+    spec:
+      containers:
+        - name: cont1
+          image: 523132704837.dkr.ecr.ap-southeast-2.amazonaws.com/abdul-cd:31-0d92d00
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          env:
+            - name: ENV
+              value: "dev"
